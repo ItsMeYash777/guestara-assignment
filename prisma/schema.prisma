@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Category {
+    id               String   @id @default(cuid())
+    name             String   @unique
+    image            String?
+    description      String?
+    taxApplicability Boolean  @default(false)
+    tax              Float?
+    taxType          String?
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+
+    subCategories SubCategory[]
+    items         Item[]
+}
+
+model SubCategory {
+    id               String   @id @default(cuid())
+    name             String   @unique
+    image            String?
+    description      String?
+    taxApplicability Boolean?
+    tax              Float?
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+
+    categoryId String
+    category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+    items Item[]
+}
+
+model Item {
+    id               String   @id @default(cuid())
+    name             String   @unique
+    image            String?
+    description      String?
+    taxApplicability Boolean  @default(false)
+    tax              Float?
+    baseAmount       Float
+    discount         Float    @default(0)
+    totalAmount      Float
+    createdAt        DateTime @default(now())
+    updatedAt        DateTime @updatedAt
+
+    categoryId String?
+    category   Category? @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+    subCategoryId String?
+    subCategory   SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: Cascade)
+}
