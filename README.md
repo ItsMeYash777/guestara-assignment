@@ -326,6 +326,41 @@ Guestara-Assessment/
 └── README.md
 ```
 
+## Project Reflection
+
+### 1. Three Things I Learned from This Assignment
+
+**a) Database Relationship Design with Prisma**
+
+Learned how to implement hierarchical data structures (Category → SubCategory → Item) using Prisma ORM.
+
+Discovered how to implement optional relationships (items can belong to either a category directly or a subcategory)
+
+**b) Implemented tax inheritance where sub-categories automatically inherit tax settings from parent categories if not specified**
+
+**c) Designed endpoints that accept both ID and name parameters, making the API more user-friendly, Implemented case-insensitive search functionality for better user experience**
+
+### 2. Most Difficult Part of the Assignment
+
+The most challenging aspect was handling the relationships between categories, sub-categories, and items while ensuring data consistency:
+
+Items can belong to either a category directly OR a sub-category. When an item belongs to a sub-category, it should also be linked to the parent category. This took a bit to get the validation logic to ensure at least one relationship exists.
+
+### 3. What I Would Have Done Differently Given More Time
+
+**a) Input Validation & Error Handling**
+
+Implement a validation middleware using libraries like Zod which is usefull in production.
+
+**b) Implement bulk operations (create/update multiple items at once)**
+
+### 4. Why I Chose PostgreSQL/NeonDB
+
+**Reasons for Choosing PostgreSQL/NeonDB:**
+
+The menu management system has clear relationships (Category → SubCategory → Item) that are best represented in a relational database
+
+
 
 
 
